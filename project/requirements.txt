@@ -5,4 +5,5 @@ tortoise-orm
 aerich
 httpx
 pytest
+gunicorn
 pydantic-settings
