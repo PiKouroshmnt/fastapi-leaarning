@@ -6,4 +6,5 @@ aerich
 httpx
 pytest
 gunicorn
+pytest-cov
 pydantic-settings
