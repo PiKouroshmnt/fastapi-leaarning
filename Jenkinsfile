@@ -8,16 +8,6 @@ pipeline {
             }
         }
 
-	stage('Install Docker Compose') {
-            steps {
-                sh '''
-                    sudo apt-get update -y
-                    sudo apt-get install -y docker-compose-plugin
-                    docker compose version
-                '''
-            }
-        }
-
         stage('Build and Start with Docker Compose') {
             steps {
                 sh 'docker-compose -f docker-compose.yml up -d --build'
