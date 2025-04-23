@@ -1,12 +1,13 @@
 import logging
-
 from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 from app.api import ping, summaries
 from app.db import init_db
 
 log = logging.getLogger("uvicorn")
+
 
 def create_application() -> FastAPI:
     @asynccontextmanager
@@ -15,11 +16,14 @@ def create_application() -> FastAPI:
         await init_db(app)
         yield
         log.info("Shutting down...")
+
     application = FastAPI(lifespan=lifespan)
     application.include_router(ping.router)
-    application.include_router(summaries.router, prefix="/summaries", tags=["summaries"])
+    application.include_router(
+        summaries.router, prefix="/summaries", tags=["summaries"]
+    )
 
     return application
 
-app = create_application()
 
+app = create_application()
