@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-	stage('Upgrade migrations) {
+	stage('Upgrade migrations') {
 		steps {
 			sh 'docker compose exec web aerich upgrade'
 		}
