@@ -14,6 +14,12 @@ pipeline {
             }
         }
 
+	stage('Upgrade migrations) {
+		steps {
+			sh 'docker compose exec web aerich upgrade'
+		}
+	}
+
         stage('Run Tests') {
             steps {
                 sh 'docker compose exec web pytest .'
