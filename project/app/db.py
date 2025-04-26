@@ -18,11 +18,7 @@ TORTOISE_ORM = {
 }
 
 
-async def init_db(app: FastAPI) -> None:
-    await Tortoise.init(
-        db_url=os.environ.get("DATABASE_URL"),
-        modules={"models": ["app.models.tortoise"]},
-    )
+def init_db(app: FastAPI) -> None:
     register_tortoise(
         app,
         db_url=os.environ.get("DATABASE_URL"),
