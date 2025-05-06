@@ -16,7 +16,7 @@ pipeline {
 
 	stage('Upgrade migrations') {
 		steps {
-			sh 'docker compose exec web aerich upgrade'
+			sh 'docker compose exec web alembic upgrade head'
 		}
 	}
 

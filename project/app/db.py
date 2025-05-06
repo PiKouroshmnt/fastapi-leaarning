@@ -5,6 +5,7 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import text
 
 DB_URL = os.environ.get("DATABASE_URL")
 
@@ -22,7 +23,7 @@ async def init_db():
     """Verify database connection"""
     try:
         async with engine.begin() as conn:
-            await conn.execute("SELECT 1")
+            await conn.execute(text("SELECT 1"))
     except Exception as e:
         log.error(f"Database is not running: {e}")
         raise

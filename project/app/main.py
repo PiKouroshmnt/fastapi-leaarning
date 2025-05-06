@@ -13,7 +13,7 @@ def create_application() -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
         log.info("Starting up...")
-        init_db(app)
+        await init_db()
         yield
         log.info("Shutting down...")
 

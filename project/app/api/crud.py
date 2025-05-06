@@ -14,7 +14,7 @@ async def post(payload: SummaryPayloadSchema, db) -> int:
             url=payload.url,
             summary="dummy summary",
         )
-        db.save(summary)
+        db.add(summary)
         await db.commit()
         await db.refresh(summary)
         return summary.id
@@ -25,9 +25,10 @@ async def post(payload: SummaryPayloadSchema, db) -> int:
 
 async def get(id: int,db) -> Union[dict, None]:
     summary = await db.get(TextSummary, id)
-    return summary.scalar_one_or_none()
+    return summary
 
 
 async def get_all(db) -> List:
-    summaries = db.execute(select(TextSummary)).scalars().all()
+    result =  await db.execute(select(TextSummary))
+    summaries = result.scalars().all()
     return summaries
