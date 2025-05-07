@@ -17,7 +17,16 @@ async def create_summary(payload: SummaryPayloadSchema,db: DB = Depends()) -> Su
     return response_object
 
 
-@router.get("/{id}/", response_model=SummarySchema)
+@router.get(
+    "/{id}/", 
+    response_model=SummarySchema,
+    responses={
+        404: {
+            "description": "Summary Not Found",
+            "content": {"application/json": {"example": {"detail": "Summary not found"}}},
+        }
+    },
+)
 async def read_summary(id: int,db: DB = Depends()) -> SummarySchema:
     summary = await crud.get(id,db)
     if not summary:
